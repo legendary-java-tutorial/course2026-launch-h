@@ -6,7 +6,13 @@ services:
       - "127.0.0.1:8080:3000"
     volumes:
       - counter-restore:/data
+    secrets:
+      - api_token
 
 volumes:
   counter-restore:
     external: true
+
+secrets:
+  api_token:
+    file: ./api_token.txt
