@@ -3,7 +3,7 @@ services:
     build: .          # собрать по Dockerfile из этой папки
     image: app:dev    # и назвать образ app:dev
     ports:
-      - "8080:3000"
+      - "127.0.0.1:8080:3000"
     volumes:
       - counter-restore:/data
 
