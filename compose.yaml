@@ -1,13 +1,21 @@
 services:
   app:
-    build: .          # собрать по Dockerfile из этой папки
-    image: app:dev    # и назвать образ app:dev
+    build: .
+    image: app:dev
+    restart: on-failure    # поднимать после выхода с ошибкой
+    mem_limit: 256m
+    cpus: 0.5
     ports:
       - "127.0.0.1:8080:3000"
     volumes:
-      - counter-restore:/data
+      - counter-restore:/data   # счётчик живёт в томе
     secrets:
       - api_token
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/"]
+      interval: 5s
+      timeout: 3s
+      retries: 2
 
 volumes:
   counter-restore:
